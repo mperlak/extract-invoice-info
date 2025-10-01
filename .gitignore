@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.env
+.DS_Store
+*.log
+
+# Ignore contents of processing directories but keep the directories
+in/*
+out/*
+processed/*
+!in/.gitkeep
+!out/.gitkeep
+!processed/.gitkeep
