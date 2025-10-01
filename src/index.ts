@@ -36,6 +36,9 @@ Zasady dla issuerName:
 - jeśli w pełnej nazwie pojawia się sieć stacji benzynowych (np. Shell, Orlen, BP), zwróć tylko nazwę sieci.
 - usuń nadmiarowe elementy typu sp. z o.o., S.A., numer oddziału itp., chyba że to jedyna informacja identyfikująca.
 - jeżeli brak rozpoznawalnej nazwy, zwróć użyteczne skrócone określenie, np. "Sklep spożywczy".
+- jezeli w nazwie mamy formę dzialalnosci - np. sp. z o.o., S.A., przedsiębiorstwo wielobranowe czy FHU - zwróć tylko nazwę wystawcy z pominięciem formy dzialalnosci.
+- jezeli faktura dotyczy stacji benzynowych - sprawdz jaki rodzaj paliwa jest na fakturze. W przypadku PB95 (benzyny bezolowiowej) - dodaj do nazwy pliku Mazda. Jezeli na fakturze jest ON (olej napędowy diesel) - dodaj do nazwy pliku Mercedes.
+- jezeli faktura dotyczy noclegu (w jakimkolwiek jezyku) - dodaj do nazwy pliku hotel.
 
 Wyjściowy format JSON:
 {
