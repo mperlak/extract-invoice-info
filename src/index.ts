@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { config as loadEnv } from 'dotenv';
-import { openai } from '@ai-sdk/openai';
+import { anthropic } from '@ai-sdk/anthropic';
 import { generateObject } from 'ai';
 import type { CoreMessage } from 'ai';
 import { z } from 'zod';
@@ -141,7 +141,7 @@ async function processFile(filePath: string, examples?: string) {
   ];
 
   const result = await generateObject({
-    model: openai('gpt-4.1-mini'),
+    model: anthropic('claude-haiku-4-5'),
     system: 'Jesteś ekspertem od ekstrakcji danych z faktur PDF.',
     messages,
     schema: responseSchema,
@@ -162,13 +162,9 @@ async function processFile(filePath: string, examples?: string) {
 }
 
 async function main() {
-  const apiKey = process.env.AI_SDK_API_KEY || process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    throw new Error('Brak zmiennej środowiskowej AI_SDK_API_KEY lub OPENAI_API_KEY. Dodaj ją do pliku .env.');
-  }
-
-  if (!process.env.OPENAI_API_KEY) {
-    process.env.OPENAI_API_KEY = apiKey;
+  // Sprawdź czy mamy klucz dla Anthropic (Claude)
+  if (!process.env.ANTHROPIC_API_KEY) {
+    throw new Error('Brak zmiennej środowiskowej ANTHROPIC_API_KEY. Dodaj ją do pliku .env.');
   }
 
   await ensureDirectories();
